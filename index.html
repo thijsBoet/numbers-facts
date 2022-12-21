@@ -5,8 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Numbers Facts</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        #fact {
+            display: none;
+        }
+    </style>
 </head>
-<body>
-    
+<body class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card bg-primary text-white mt-5 p-4">
+                    <h1>Numbers Facts</h1>
+                    <p>Enter a number and get a random fact</p>
+                    <input class="form-control form-control-lg" type="number" name="number" id="numberInput" placeholder="Enter any number...">
+                    <div id="fact" class="card-body">
+                        <h4 class="card-title">
+                            Number Fact
+                        </h4>
+                        <p id="factText" class="card-text">
+                            
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const fact = document.getElementById('fact');
+        const factText = document.getElementById('factText');
+
+        const numberInput = document.getElementById('numberInput');
+        numberInput.addEventListener('input', getFactFetch);
+
+        function getFactFetch() {
+            let number = numberInput.value;
+
+            fetch(`http://numbersapi.com/${number}`)
+                .then(response => response.text())
+                .then(data => {
+                    fact.style.display = 'block';
+                    factText.innerText = data;
+                })
+                .catch(err => console.log(err));
+        }
+    </script>
 </body>
 </html>
